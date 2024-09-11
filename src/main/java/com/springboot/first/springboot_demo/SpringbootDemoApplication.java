@@ -1,4 +1,4 @@
-package controler;
+package com.springboot.first.springboot_demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
