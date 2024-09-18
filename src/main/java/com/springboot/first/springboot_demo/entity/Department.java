@@ -1,10 +1,13 @@
 package com.springboot.first.springboot_demo.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Department {
@@ -12,6 +15,7 @@ public class Department {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long departmentId;
 	@NotBlank(message= "Please add Department name")
+	@Length(max=5,min=1) 
 	private String departmentName;
 	private String dAdd;
 	private String departmentCode;
