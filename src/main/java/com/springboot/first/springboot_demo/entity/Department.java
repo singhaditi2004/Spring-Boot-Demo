@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,19 +43,7 @@ public class Department {
 				+ ", departmentCode=" + departmentCode + "]";
 	}
 
-	public Department() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Department(Long departmentId, String departmentName, String dAdd, String departmentCode) {
-		super();
-		this.departmentId = departmentId;
-		this.departmentName = departmentName;
-		this.dAdd = dAdd;
-		this.departmentCode = departmentCode;
-	}
-
+	
 	public String getDepartmentName() {
 		return departmentName;
 	}

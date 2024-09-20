@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.first.springboot_demo.entity.Department;
+import com.springboot.first.springboot_demo.error.DepartmentNotFoundException;
 import com.springboot.first.springboot_demo.service.DepartmentSeriveImplementation;
 import com.springboot.first.springboot_demo.service.DepartmentService;
 import org.slf4j.LoggerFactory; 
@@ -35,7 +36,7 @@ public class Controller {
 	}
 
 	@GetMapping("/departments/{id}")
-	public Department fetchDepartByid(@PathVariable("id") Long departemntId) {
+	public Department fetchDepartByid(@PathVariable("id") Long departemntId) throws DepartmentNotFoundException {
 		return departmentService.fetchDepartByid(departemntId);
 	}
 
