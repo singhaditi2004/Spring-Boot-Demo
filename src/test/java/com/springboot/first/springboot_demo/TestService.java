@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,9 +27,12 @@ class TestService {
 				          .departmentName("IT")
 				          .departmentCode("IT-23")
 				          .departmentId(1L)
-				          .dAdd("H>NO 123");
+				          .dAdd("H>NO 123")
+				          .build();
+		Mockito.when(departRepo.findByDepartmentName("IT")).thenReturn(depart);
 	}
 	@Test
+	@DisplayName("Get Data based on valid Depatment name")
 	public void whenValidDepartmentName(String dname) {
 		String departName="IT";
 	    Department found=departService.fetchDepartByName(departName);
