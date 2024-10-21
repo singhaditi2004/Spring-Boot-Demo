@@ -19,58 +19,46 @@ import com.springboot.first.springboot_demo.Controller;
 import com.springboot.first.springboot_demo.entity.Department;
 import com.springboot.first.springboot_demo.service.DepartmentService;
 
-@WebMvcTest(Controller.class)  // Reference the controller being tested
+@WebMvcTest(Controller.class) // Reference the controller being tested
 class DepartControlTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @MockBean
-    private DepartmentService departmentService;
+	@MockBean
+	private DepartmentService departmentService;
 
-    private Department department;
+	private Department department;
 
-    @BeforeEach
-    void setUp() {
-        department = Department.builder()
-                .dAdd("DELHI")
-                .departmentCode("IT-56")
-                .departmentId(12L)
-                .departmentName("IT")
-                .build();
-    }
+	@BeforeEach
+	void setUp() {
+		department = Department.builder().dAdd("DELHI").departmentCode("IT-56").departmentId(12L).departmentName("IT")
+				.build();
+	}
 
-    @Test
-    void saveDepartment() throws Exception {
-        Department inputDepartment = Department.builder()
-                .dAdd("Bombay")
-                .departmentCode("IT-56")
-                .departmentId(12L)
-                .departmentName("IT")
-                .build();
+	@Test
+	void saveDepartment() throws Exception {
+		Department inputDepartment = Department.builder().dAdd("Bombay").departmentCode("IT-56").departmentId(12L)
+				.departmentName("IT").build();
 
-        Mockito.when(departmentService.saveDepartment(Mockito.any(Department.class))).thenReturn(department);
+		Mockito.when(departmentService.saveDepartment(Mockito.any(Department.class))).thenReturn(department);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/departments")  // Correct URL
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\n" +
-                        "\t\"departmentName\":\"IT\",\n" +
-                        "\t\"departmentAddress\":\"Ahmedabad\", \n" +
-                        "\t\"departmentCode\":\"IT-06\"\n" +
-                        "}"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+		mockMvc.perform(MockMvcRequestBuilders.post("/departments") // Correct URL
+				.contentType(MediaType.APPLICATION_JSON).content("{\n" + "\t\"departmentName\":\"IT\",\n"
+						+ "\t\"departmentAddress\":\"Ahmedabad\", \n" + "\t\"departmentCode\":\"IT-06\"\n" + "}"))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
 
-    @Test
-    void fetchDepartById() throws Exception {
-        Mockito.when(departmentService.fetchDepartByid(1L)).thenReturn(department);
+	@Test
+	void fetchDepartById() throws Exception {
+		Mockito.when(departmentService.fetchDepartByid(1L)).thenReturn(department);
 
-        mockMvc.perform(get("/departments/1")
-                .contentType(MediaType.APPLICATION_JSON))  // Move this inside the perform call
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.departmentName").value(department.getDepartmentName()))
-                .andExpect(jsonPath("$.dAdd").value(department.getdAdd()))
-                .andExpect(jsonPath("$.departmentCode").value(department.getDepartmentCode()));
-    }
+		mockMvc.perform(get("/departments/1").contentType(MediaType.APPLICATION_JSON)) // Move this inside the perform
+																						// call
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.departmentName").value(department.getDepartmentName()))
+				.andExpect(jsonPath("$.dAdd").value(department.getdAdd()))
+				.andExpect(jsonPath("$.departmentCode").value(department.getDepartmentCode()));
+	}
 
 }
